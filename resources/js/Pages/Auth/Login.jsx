@@ -5,7 +5,9 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import Text from '@/Components/Text';
+import LinkTag from '@/Components/LinkTag';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -64,31 +66,42 @@ export default function Login({ status, canResetPassword }) {
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
-                        />
-                        <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                    </label>
+                <div className="flex justify-between items-center mt-4">
+                    <div className="block">
+                        <label className="flex items-center">
+                            <Checkbox
+                                name="remember"
+                                checked={data.remember}
+                                onChange={(e) => setData('remember', e.target.checked)}
+                            />
+                            <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                        </label>
+                    </div>
+                    <div className="flex items-center justify-end">
+                        {canResetPassword && (
+                            <LinkTag
+                                href={route('password.request')}
+                            >
+                                Forgot your password?
+                            </LinkTag>
+                        )}
+
+                    </div>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                <PrimaryButton className="w-full mt-6 items-center justify-center" disabled={processing}>
+                    Log in
+                </PrimaryButton>
+
+                <Text className="text-semibold pt-6">
+                        Already have an account?
+                        <LinkTag 
+                            href={route('register')} 
+                            className="ml-2" 
                         >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
+                            Register
+                        </LinkTag>
+                </Text>
             </form>
         </GuestLayout>
     );
