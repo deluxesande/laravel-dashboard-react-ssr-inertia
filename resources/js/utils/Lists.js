@@ -12,19 +12,13 @@ const products = [
             "Two each of gray, white, and black shirts arranged on table.",
         colors: [
             {
-                name: "White",
-                class: "bg-white",
-                selectedClass: "ring-gray-400",
+                name: "white",
             },
             {
-                name: "Gray",
-                class: "bg-gray-200",
-                selectedClass: "ring-gray-400",
+                name: "gray",
             },
             {
-                name: "Black",
-                class: "bg-gray-900",
-                selectedClass: "ring-gray-900",
+                name: "black",
             },
         ],
         sizes: [
@@ -97,4 +91,4 @@ const callOuts = [
 ];
 
 export default products;
-export { callOuts, defaultProduct };
+export { callOuts, defaultProduct, products };
