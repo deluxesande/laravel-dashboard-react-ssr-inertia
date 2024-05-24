@@ -12,7 +12,7 @@ import Text from '@/Components/Text';
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [activeNav, setActiveNav] = useState("");
+    const [activeNav, setActiveNav] = useState("dashboard");
     const [currentNavLinks, setCurrentNavLinks] = useState([]);
 
     return (
@@ -28,7 +28,14 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden relative space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                <NavLink 
+                                    href={route('dashboard')} 
+                                    active={route().current('dashboard') && activeNav === 'dashboard'}
+                                    onClick={() => {
+                                        setActiveNav('dashboard');
+                                        setIsOpen(false);
+                                    }}
+                                >
                                     Dashboard
                                 </NavLink>
                                 {NavButtons.map((navButton, index) => (
