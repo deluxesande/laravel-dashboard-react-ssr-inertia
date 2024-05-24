@@ -1,19 +1,65 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import Text from "@/Components/Text";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
+import products from "@/utils/Lists";
 
 export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Dashboard
+                </h2>
+            }
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">You're logged in!</div>
-                    </div>
+            <div className="w-full px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+                <Text
+                    variant="h2"
+                    className="text-2xl font-bold tracking-tight"
+                >
+                    Customers also purchased
+                </Text>
+
+                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                    {products.map((product) => (
+                        <div
+                            key={product.id}
+                            className="group relative bg-slate-300 dark:bg-slate-800 rounded-md p-4"
+                        >
+                            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                                <img
+                                    src={product.imageSrc}
+                                    alt={product.imageAlt}
+                                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                                />
+                            </div>
+                            <div className="mt-4 flex justify-between">
+                                <div>
+                                    <Text
+                                        variant="h3"
+                                        className="text-sm text-gray-700"
+                                    >
+                                        <a href={product.href}>
+                                            <span
+                                                aria-hidden="true"
+                                                className="absolute inset-0"
+                                            />
+                                            {product.name}
+                                        </a>
+                                    </Text>
+                                    <Text className="mt-1 text-sm text-gray-500">
+                                        {product.color}
+                                    </Text>
+                                </div>
+                                <Text className="text-sm font-medium text-gray-900">
+                                    {product.price}
+                                </Text>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -1,10 +1,12 @@
-export default function Text({ className = '', disabled, children, ...props }) {
+export default function Text({ variant = 'p', className = '', children, ...props }) {
+    const Component = variant;
+
     return (
-        <p
+        <Component
             {...props}
             className={"text-gray-900 dark:text-gray-100 " + className}
         >
             {children}
-        </p>
+        </Component>
     );
 }
