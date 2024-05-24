@@ -1,6 +1,7 @@
 import Text from "@/Components/Text";
 import { defaultProduct } from "@/utils/Lists";
 import { Star, X } from "lucide-react";
+import { ringColorMap, colorMap } from "@/utils/ProductColors";
 
 export default function QuickView({ product = defaultProduct, open, onClose }) {
     function displayStars(rating) {
@@ -74,22 +75,8 @@ export default function QuickView({ product = defaultProduct, open, onClose }) {
         return stars;
     }
 
-    const colorMap = {
-        white: "bg-white",
-        gray: "bg-gray-500",
-        black: "bg-black",
-        // Add more colors as needed
-    };
-
     // Then, when setting the class:
     const colorClass = (color) => colorMap[color.name.toLowerCase()];
-
-    const ringColorMap = {
-        white: "ring-white",
-        gray: "ring-gray-500",
-        black: "ring-black",
-        // Add more colors as needed
-    };
 
     // Then, when setting the class:
     const ringColorClass = (color) => ringColorMap[color.name.toLowerCase()];
