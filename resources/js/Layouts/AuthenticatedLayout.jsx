@@ -4,9 +4,15 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import NavButton from '@/Components/NavButton';
+import NavButtons from '@/utils/NavButtons';
+import toSentenceCase from '@/utils/Functions';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeNav, setActiveNav] = useState("");
+    const [currentNavLinks, setCurrentNavLinks] = useState([]);
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -20,10 +26,25 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden relative space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('profile.edit')} active={route().current('profile.edit')}>
+                                    Profile
+                                </NavLink>
+                                {NavButtons.map((navButton, index) => (
+                                    <NavButton 
+                                        active={activeNav == navButton.name ? true : false}
+                                        onClick={() => {
+                                            setIsOpen(!isOpen);
+                                            setActiveNav(navButton.name);
+                                            setCurrentNavLinks(navButton.nav_links);
+                                        }}
+                                    >
+                                        {navButton.name}
+                                    </NavButton>
+                                ))}
                             </div>
                         </div>
 
@@ -31,27 +52,18 @@ export default function Authenticated({ user, header, children }) {
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {user.name}
-
-                                                <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
+                                        <button 
+                                            className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                            type="button"
+                                        >
+                                            <span className="absolute -inset-1.5" />
+                                            <span className="sr-only">Open user menu</span>
+                                            <img
+                                                className="h-8 w-8 rounded-full"
+                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                alt=""
+                                            />
+                                        </button>
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
@@ -90,6 +102,24 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
 
+                {/* Flyout menu */}
+                {isOpen && (
+                    <div className="absolute w-full h-40 shadow-lg bg-gray-100 dark:bg-gray-900 ">
+                        <div className="py-1" role="menu" aria-orientation="vertical">
+                            {currentNavLinks.map((navLink, index) => (
+                                <NavLink 
+                                    key={index} 
+                                    href={navLink.href} 
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+                                    role="menuitem"
+                                >
+                                    {toSentenceCase(navLink.name)}
+                                </NavLink>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
@@ -114,7 +144,7 @@ export default function Authenticated({ user, header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-white dark:bg-gray-800 shadow">
+                <header className="hidden bg-white dark:bg-gray-800 shadow">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
                 </header>
             )}
