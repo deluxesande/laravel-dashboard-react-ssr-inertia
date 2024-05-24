@@ -8,12 +8,39 @@ import NavButton from '@/Components/NavButton';
 import NavButtons from '@/utils/NavButtons';
 import toSentenceCase from '@/utils/Functions';
 import Text from '@/Components/Text';
+import ResponsiveNavButton from '@/Components/ResponsiveNavButton';
+import ResponsiveSubNavButton from '@/Components/ResponsiveSubNavButton';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    // PC states
     const [isOpen, setIsOpen] = useState(false);
     const [activeNav, setActiveNav] = useState("dashboard");
     const [currentNavLinks, setCurrentNavLinks] = useState([]);
+
+    const [isMbOpen, setIsMbOpen] = useState(false);
+    const [activeMbNav, setActiveMbNav] = useState("dashboard");
+    const [currentMbNavLinks, setCurrentMbNavLinks] = useState([]);
+
+    function handleLinkClick(navButton) {
+        setActiveNav(navButton.name);
+        setCurrentNavLinks(navButton.sections);
+        if( activeNav === navButton.name ) {
+            isOpen ? setIsOpen(false) : setIsOpen(true);
+        } else {
+            setIsOpen(isOpen === false ? true : isOpen);
+        }
+    };
+
+    function handleMbLinkClick(navButton) {
+        setActiveMbNav(navButton.name);
+        setCurrentMbNavLinks(navButton.sections);
+        if( activeMbNav === navButton.name ) {
+            isMbOpen ? setIsMbOpen(false) : setIsMbOpen(true);
+        } else {
+            setIsMbOpen(isMbOpen === false ? true : isMbOpen);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -40,12 +67,9 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                                 {NavButtons.map((navButton, index) => (
                                     <NavButton 
+                                        key={index}
                                         active={activeNav == navButton.name ? true : false}
-                                        onClick={() => {
-                                            setActiveNav(navButton.name);
-                                            setCurrentNavLinks(navButton.sections);
-                                            setIsOpen(isOpen === false ? true : isOpen);
-                                        }}
+                                        onClick={() => handleLinkClick(navButton)}
                                     >
                                         {navButton.name}
                                     </NavButton>
@@ -131,11 +155,43 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 )}
 
+                {/* Mobile menu */}
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                        <ResponsiveNavLink 
+                            href={route('dashboard')}
+                            active={route().current('dashboard') && activeMbNav === 'dashboard'}
+                            onClick={() => {
+                                setActiveMbNav('dashboard');
+                                setIsMbOpen(false);
+                            }}
+                        >
                             Dashboard
                         </ResponsiveNavLink>
+                        {NavButtons.map((navButton, index) => (
+                            <ResponsiveNavButton 
+                                key={index}
+                                active={activeMbNav == navButton.name ? true : false}
+                                onClick={() => handleMbLinkClick(navButton)}
+                            >
+                                {navButton.name}
+                            </ResponsiveNavButton>
+                        ))}
+                        {isMbOpen && (
+                            <div  className="flex flex-col">
+                                <Text className="text-sm font-bold ml-3 my-3">Categories</Text>
+                                <div className="ml-6">
+                                    {currentMbNavLinks.map((navLink, index) => (
+                                        <ResponsiveSubNavButton
+                                            key={index}
+                                            active={activeMbNav == navLink.name ? true : false}
+                                        >
+                                            {navLink.name}
+                                        </ResponsiveSubNavButton>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
