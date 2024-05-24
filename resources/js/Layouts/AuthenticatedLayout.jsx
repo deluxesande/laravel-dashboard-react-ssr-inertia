@@ -7,6 +7,7 @@ import { Link } from '@inertiajs/react';
 import NavButton from '@/Components/NavButton';
 import NavButtons from '@/utils/NavButtons';
 import toSentenceCase from '@/utils/Functions';
+import Text from '@/Components/Text';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -30,16 +31,13 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                <NavLink href={route('profile.edit')} active={route().current('profile.edit')}>
-                                    Profile
-                                </NavLink>
                                 {NavButtons.map((navButton, index) => (
                                     <NavButton 
                                         active={activeNav == navButton.name ? true : false}
                                         onClick={() => {
-                                            setIsOpen(!isOpen);
                                             setActiveNav(navButton.name);
-                                            setCurrentNavLinks(navButton.nav_links);
+                                            setCurrentNavLinks(navButton.sections);
+                                            setIsOpen(isOpen === false ? true : isOpen);
                                         }}
                                     >
                                         {navButton.name}
@@ -104,17 +102,23 @@ export default function Authenticated({ user, header, children }) {
 
                 {/* Flyout menu */}
                 {isOpen && (
-                    <div className="absolute w-full h-40 shadow-lg bg-gray-100 dark:bg-gray-900 ">
-                        <div className="py-1" role="menu" aria-orientation="vertical">
+                    <div className="absolute w-full h-fit p-10 shadow-lg bg-gray-100 dark:bg-gray-900 ">
+                        <div className="py-1 flex justify-evenly items-start" role="menu">
                             {currentNavLinks.map((navLink, index) => (
-                                <NavLink 
-                                    key={index} 
-                                    href={navLink.href} 
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
-                                    role="menuitem"
-                                >
-                                    {toSentenceCase(navLink.name)}
-                                </NavLink>
+                                <div key={index} className="flex flex-col">
+                                    {/* NavLink is a section */}
+                                    <Text className="font-bold text-md">{navLink.name}</Text>
+                                    {navLink.items.map((item, index) => (
+                                        <NavLink 
+                                            key={index} 
+                                            href={item.href} 
+                                            className="block py-2 text-sm text-gray-700 hover:bg-gray-100" 
+                                            role="menuitem"
+                                        >
+                                            {toSentenceCase(item.name)}
+                                        </NavLink>
+                                    ))}
+                                </div>
                             ))}
                         </div>
                     </div>
