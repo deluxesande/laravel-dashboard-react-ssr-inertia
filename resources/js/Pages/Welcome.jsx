@@ -1,29 +1,23 @@
 import Collections from "@/Components/Products/Collections";
 import SimpleProductsList from "@/Components/Products/SimpleProductsList";
+import LogoClouds from "@/Components/Welcome/LogoClouds";
+import PromoSection from "@/Components/Welcome/PromoSection";
+import NewsletterSection from "@/Components/Welcome/NewsletterSection";
+import Text from "@/Components/Text";
 import { Link, Head } from "@inertiajs/react";
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
-    const handleImageError = () => {
-        document
-            .getElementById("screenshot-container")
-            ?.classList.add("!hidden");
-        document.getElementById("docs-card")?.classList.add("!row-span-1");
-        document
-            .getElementById("docs-card-content")
-            ?.classList.add("!flex-row");
-        document.getElementById("background")?.classList.add("!hidden");
-    };
-
+export default function Welcome({ auth }) {
     return (
         <>
             <Head title="Welcome" />
             <div className="bg-gray-50 text-black/50 dark:bg-gray-900 dark:text-white/50">
                 <div className="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                        <header className="flex justify-between py-10">
+                        <header className="flex justify-between py-10 px-8">
+                            {/* Logo */}
                             <div className="">
                                 <svg
-                                    className="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]"
+                                    className="h-12 w-auto lg:h-16 text-[#FF2D20]"
                                     viewBox="0 0 62 65"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -62,13 +56,75 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </header>
 
                         <main className="mt-6">
+                            {/* Hero Section */}
+                            <div className="relative isolate px-4">
+                                <div className="mx-auto max-w-2xl py-24">
+                                    <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+                                        <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                                            <Text>
+                                                Announcing our next round of
+                                                funding.
+                                                <a
+                                                    href="#"
+                                                    className="font-semibold text-blue-600 ml-2"
+                                                >
+                                                    <span
+                                                        className="absolute inset-0"
+                                                        aria-hidden="true"
+                                                    />
+                                                    Read more{" "}
+                                                    <span aria-hidden="true">
+                                                        &rarr;
+                                                    </span>
+                                                </a>
+                                            </Text>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+                                        <Text
+                                            variant="h1"
+                                            className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+                                        >
+                                            Data to enrich your online business
+                                        </Text>
+                                        <Text className="mt-6 text-lg leading-8 text-gray-600">
+                                            Anim aute id magna aliqua ad ad non
+                                            deserunt sunt. Qui irure qui lorem
+                                            cupidatat commodo. Elit sunt amet
+                                            fugiat veniam occaecat fugiat
+                                            aliqua.
+                                        </Text>
+                                        <div className="mt-10 flex items-center justify-evenly gap-x-6">
+                                            <a
+                                                href="#"
+                                                className="rounded-md bg-blue-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                                            >
+                                                Get started
+                                            </a>
+                                            <a
+                                                href="#"
+                                                className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
+                                            >
+                                                Learn more <span>→</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <LogoClouds />
+
                             <SimpleProductsList user={auth.user} />
 
+                            <PromoSection />
+
                             <Collections />
+
+                            <NewsletterSection />
                         </main>
 
                         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-                            Laravel v{laravelVersion} (PHP v{phpVersion})
+                            Deluxe App
                         </footer>
                     </div>
                 </div>
