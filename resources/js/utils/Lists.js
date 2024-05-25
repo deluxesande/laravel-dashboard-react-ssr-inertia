@@ -218,8 +218,6 @@ const defaultProduct = {
     colors: [
         {
             name: "",
-            class: "",
-            selectedClass: "",
         },
     ],
     sizes: [
