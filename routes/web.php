@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 // Products page
 Route::get('/products', function () {
     return Inertia::render('Products/View');
+    // TODO - Figure out how to create a guest user for them to visit products page
 })->middleware(['auth', 'verified', CheckUserRole::class . ':user'])->name('products');
 
 require __DIR__ . '/auth.php';

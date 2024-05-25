@@ -3,9 +3,11 @@ import { products, defaultProduct } from "@/utils/Lists";
 import { useState } from "react";
 import QuickView from "@/Pages/Products/Partials/QuickView";
 
-export default function ProductsList() {
+export default function ProductsList({ user }) {
     const [open, setOpen] = useState(false);
     const [currentProduct, setCurrentProduct] = useState(defaultProduct);
+
+    if (!products) return <div></div>;
 
     return (
         <div className="w-full px-4 py-6 sm:px-6 sm:py-12 lg:px-8">
@@ -49,7 +51,7 @@ export default function ProductsList() {
                                 </Text>
                             </div>
                             <Text className="text-sm font-medium text-gray-900">
-                                {product.price}
+                                {user ? product.price : null}
                             </Text>
                         </div>
                     </div>

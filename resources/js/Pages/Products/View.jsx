@@ -14,7 +14,7 @@ export default function View({ auth }) {
         >
             <Head title="Products" />
 
-            <ProductsList />
+            <ProductsList user={auth.user} />
         </AuthenticatedLayout>
     );
 }
