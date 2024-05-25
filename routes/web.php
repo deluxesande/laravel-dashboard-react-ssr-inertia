@@ -23,4 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Products page
+Route::get('/products', function () {
+    return Inertia::render('Products/View');
+})->middleware(['auth', 'verified', CheckUserRole::class . ':user'])->name('products');
+
 require __DIR__ . '/auth.php';

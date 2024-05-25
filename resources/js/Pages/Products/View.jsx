@@ -1,7 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import ProductsList from "./Partials/ProductsList";
 
-export default function Dashboard({ auth }) {
+export default function View({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -11,8 +12,9 @@ export default function Dashboard({ auth }) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
-            <h2> You are logged in.</h2>
+            <Head title="Products" />
+
+            <ProductsList />
         </AuthenticatedLayout>
     );
 }

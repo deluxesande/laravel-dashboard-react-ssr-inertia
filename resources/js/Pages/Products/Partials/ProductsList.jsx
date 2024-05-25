@@ -1,7 +1,7 @@
 import Text from "@/Components/Text";
 import { products, defaultProduct } from "@/utils/Lists";
 import { useState } from "react";
-import QuickView from "@/Components/Products/QuickView";
+import QuickView from "@/Pages/Products/Partials/QuickView";
 
 export default function ProductsList() {
     const [open, setOpen] = useState(false);

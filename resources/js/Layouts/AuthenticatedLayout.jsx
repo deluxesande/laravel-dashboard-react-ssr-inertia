@@ -69,6 +69,19 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route("products")}
+                                    active={
+                                        route().current("products") &&
+                                        activeNav === "products"
+                                    }
+                                    onClick={() => {
+                                        setActiveNav("products");
+                                        setIsOpen(false);
+                                    }}
+                                >
+                                    Products
+                                </NavLink>
                                 {NavButtons.map((navButton, index) => (
                                     <NavButton
                                         key={index}
@@ -170,7 +183,7 @@ export default function Authenticated({ user, header, children }) {
 
                 {/* Flyout menu */}
                 {isOpen && (
-                    <div className="absolute w-full h-fit p-10 shadow-lg bg-white dark:bg-gray-700 ">
+                    <div className="absolute z-50 w-full h-fit p-10 shadow-lg bg-white dark:bg-gray-700 ">
                         <div
                             className="py-1 flex justify-evenly items-start"
                             role="menu"
@@ -217,6 +230,19 @@ export default function Authenticated({ user, header, children }) {
                             }}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("products")}
+                            active={
+                                route().current("products") &&
+                                activeMbNav === "products"
+                            }
+                            onClick={() => {
+                                setActiveMbNav("products");
+                                setIsMbOpen(false);
+                            }}
+                        >
+                            Products
                         </ResponsiveNavLink>
                         {NavButtons.map((navButton, index) => (
                             <ResponsiveNavButton
