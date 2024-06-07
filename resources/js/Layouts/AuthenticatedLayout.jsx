@@ -10,6 +10,8 @@ import toSentenceCase from "@/utils/Functions";
 import Text from "@/Components/Text";
 import ResponsiveNavButton from "@/Components/ResponsiveNavButton";
 import ResponsiveSubNavButton from "@/Components/ResponsiveSubNavButton";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import ShoppingCart from "@/Components/ShoppingCart/Cart";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -22,6 +24,9 @@ export default function Authenticated({ user, header, children }) {
     const [isMbOpen, setIsMbOpen] = useState(false);
     const [activeMbNav, setActiveMbNav] = useState("dashboard");
     const [currentMbNavLinks, setCurrentMbNavLinks] = useState([]);
+
+    // Shopping cart
+    const [cartOpen, setCartOpen] = useState(false);
 
     function handleLinkClick(navButton) {
         setActiveNav(navButton.name);
@@ -100,6 +105,15 @@ export default function Authenticated({ user, header, children }) {
                             </div>
                         </div>
 
+                        <div
+                            className="flex items-center justify-center ml-4 cursor-pointer"
+                            onClick={() => setCartOpen(!cartOpen)}
+                        >
+                            <ShoppingCartIcon
+                                className="h-6 w-6 text-white"
+                                aria-hidden="true"
+                            />
+                        </div>
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
                             <div className="ms-3 relative">
                                 <Dropdown>
@@ -313,6 +327,7 @@ export default function Authenticated({ user, header, children }) {
             )}
 
             <main className="overflow-x-auto container mx-auto">
+                <ShoppingCart open={cartOpen} setOpen={setCartOpen} />
                 {children}
             </main>
         </div>
