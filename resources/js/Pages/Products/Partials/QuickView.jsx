@@ -1,85 +1,21 @@
 import Text from "@/Components/Text";
 import { defaultProduct } from "@/utils/Lists";
-import { Star, X } from "lucide-react";
+import { X } from "lucide-react";
 import { ringColorMap, colorMap } from "@/utils/ProductColors";
+import { displayStars } from "@/utils/Functions";
+import { useState } from "react";
 
 export default function QuickView({ product = defaultProduct, open, onClose }) {
-    function displayStars(rating) {
-        let stars = [];
-        for (let i = 1; i <= 5; i++) {
-            if (i <= Math.floor(rating)) {
-                stars.push(<Star key={i} fill="currentColor" stroke="none" />);
-            } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
-                stars.push(
-                    <svg
-                        key={i}
-                        width="24"
-                        height="24"
-                        fill="none"
-                        stroke="none"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-star-half"
-                    >
-                        <defs>
-                            <linearGradient
-                                id="half-gradient"
-                                x1="0%"
-                                y1="0%"
-                                x2="100%"
-                                y2="0%"
-                            >
-                                <stop
-                                    offset="0%"
-                                    style={{
-                                        stopColor: "currentColor",
-                                        stopOpacity: 1,
-                                    }}
-                                />
-                                <stop
-                                    offset="50%"
-                                    style={{
-                                        stopColor: "currentColor",
-                                        stopOpacity: 1,
-                                    }}
-                                />
-                                <stop
-                                    offset="50%"
-                                    style={{
-                                        stopColor: "rgb(219, 234, 254)",
-                                        stopOpacity: 1,
-                                    }}
-                                />
-                                <stop
-                                    offset="100%"
-                                    style={{
-                                        stopColor: "rgb(219, 234, 254)",
-                                        stopOpacity: 1,
-                                    }}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <path
-                            fill="url(#half-gradient)"
-                            d="M12 2l3.09 6.26L22 9.27l-5 4.73L18.18 21 12 17.27 5.82 21 7 14 2 9.27l6.91-1.01L12 2z"
-                        ></path>
-                    </svg>
-                );
-            } else {
-                stars.push(
-                    <Star key={i} fill="rgb(219 234 254)" stroke="none" />
-                );
-            }
-        }
-        return stars;
-    }
-
-    // Then, when setting the class:
     const colorClass = (color) => colorMap[color.name.toLowerCase()];
-
-    // Then, when setting the class:
     const ringColorClass = (color) => ringColorMap[color.name.toLowerCase()];
+
+    const [color, setColor] = useState(product.colors[0]);
+    const [size, setSize] = useState(product.sizes[0]);
+
+    const handleAddToCart = () => {
+        // TODO - handle add to cart
+        console.log(color, size);
+    };
 
     return (
         open && (
@@ -173,6 +109,11 @@ export default function QuickView({ product = defaultProduct, open, onClose }) {
                                                                     color
                                                                 )}`}
                                                                 tabIndex={0}
+                                                                onClick={() =>
+                                                                    setColor(
+                                                                        color
+                                                                    )
+                                                                }
                                                             ></div>
                                                         )
                                                     )}
@@ -209,6 +150,11 @@ export default function QuickView({ product = defaultProduct, open, onClose }) {
                                                                 disabled={
                                                                     !size.inStock
                                                                 }
+                                                                onClick={() =>
+                                                                    setSize(
+                                                                        size
+                                                                    )
+                                                                }
                                                             >
                                                                 {size.name}
                                                             </button>
@@ -219,8 +165,9 @@ export default function QuickView({ product = defaultProduct, open, onClose }) {
                                                 <button
                                                     type="submit"
                                                     className="mt-16 flex w-full items-center justify-center rounded-md border border-transparent bg-orange-600 dark:bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-orange-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-blue-500"
+                                                    onClick={handleAddToCart}
                                                 >
-                                                    Add to bag
+                                                    Add to Cart
                                                 </button>
                                             </div>
                                         </section>

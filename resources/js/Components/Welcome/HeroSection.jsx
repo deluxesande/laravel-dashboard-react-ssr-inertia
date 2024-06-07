@@ -33,7 +33,7 @@ export default function HeroSection() {
                         irure qui lorem cupidatat commodo. Elit sunt amet fugiat
                         veniam occaecat fugiat aliqua.
                     </Text>
-                    <div className="mt-10 flex items-center justify-evenly gap-x-6">
+                    <div className="mt-10 flex flex-wrap items-center justify-evenly gap-x-6 gap-y-6">
                         <a
                             href={route("products")}
                             className="rounded-md bg-blue-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"

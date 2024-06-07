@@ -18,7 +18,7 @@ export default function NewsletterSection() {
                             nostrud adipisicing velit quis. Duis tempor
                             incididunt dolore.
                         </Text>
-                        <div className="mt-6 flex max-w-md gap-x-4">
+                        <div className="mt-6 flex flex-wrap max-w-md gap-4">
                             <label htmlFor="email-address" className="sr-only">
                                 Email address
                             </label>
@@ -33,7 +33,7 @@ export default function NewsletterSection() {
                             />
                             <button
                                 type="submit"
-                                className="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                                className="flex-1 rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                             >
                                 Subscribe
                             </button>

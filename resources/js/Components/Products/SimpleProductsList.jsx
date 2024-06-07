@@ -1,7 +1,9 @@
-import { products } from "@/utils/Lists";
+import { products as data } from "@/utils/Lists";
 import Text from "@/Components/Text";
 
 export default function SimpleProductsList({ user }) {
+    // Limit products displayed
+    const products = data.slice(0, 5);
     return (
         <div className="w-full px-4 py-6 sm:px-6 sm:py-12 lg:mb-16 lg:py-16 lg:px-8">
             <span className="sr-only">Products</span>
