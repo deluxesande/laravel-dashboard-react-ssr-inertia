@@ -6,6 +6,7 @@ import NewsletterSection from "@/Components/Welcome/NewsletterSection";
 import Text from "@/Components/Text";
 import { Link, Head } from "@inertiajs/react";
 import HeroSection from "@/Components/Welcome/HeroSection";
+import ContactForm from "@/Components/Welcome/ContactSection";
 
 export default function Welcome({ auth }) {
     return (
@@ -68,6 +69,8 @@ export default function Welcome({ auth }) {
                             <Collections />
 
                             <NewsletterSection />
+
+                            <ContactForm />
                         </main>
 
                         <footer className="py-16 text-center text-sm text-black dark:text-white/70">
