@@ -106,8 +106,11 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div
-                            className="flex items-center justify-center ml-4 cursor-pointer"
-                            onClick={() => setCartOpen(!cartOpen)}
+                            className="flex items-center justify-center ml-4 mr-2 cursor-pointer"
+                            onClick={() => {
+                                setCartOpen(!cartOpen);
+                                setIsOpen(false);
+                            }}
                         >
                             <ShoppingCartIcon
                                 className="h-6 w-6 text-white"

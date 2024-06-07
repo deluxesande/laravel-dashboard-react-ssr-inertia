@@ -29,4 +29,9 @@ Route::get('/products', function () {
     // TODO - Figure out how to create a guest user for them to visit products page
 })->middleware(['auth', 'verified', CheckUserRole::class . ':user'])->name('products');
 
+// Checkout page
+Route::get('/checkout', function () {
+    return Inertia::render('Checkout/View');
+})->middleware(['auth', 'verified', CheckUserRole::class . ':user'])->name('checkout');
+
 require __DIR__ . '/auth.php';
