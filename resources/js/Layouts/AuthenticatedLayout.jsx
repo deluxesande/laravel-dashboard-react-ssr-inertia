@@ -62,19 +62,6 @@ export default function Authenticated({ user, header, children }) {
 
                             <div className="hidden relative space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    active={
-                                        route().current("dashboard") &&
-                                        activeNav === "dashboard"
-                                    }
-                                    onClick={() => {
-                                        setActiveNav("dashboard");
-                                        setIsOpen(false);
-                                    }}
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
                                     href={route("products")}
                                     active={
                                         route().current("products") &&
@@ -235,19 +222,6 @@ export default function Authenticated({ user, header, children }) {
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={
-                                route().current("dashboard") &&
-                                activeMbNav === "dashboard"
-                            }
-                            onClick={() => {
-                                setActiveMbNav("dashboard");
-                                setIsMbOpen(false);
-                            }}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("products")}
                             active={
