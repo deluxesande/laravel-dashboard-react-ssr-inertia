@@ -4,20 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Color extends Model
-{
-    use HasFactory;
-
-    protected $fillable = ['name'];
-}
-
-class Size extends Model
-{
-    use HasFactory;
-
-    protected $fillable = ['name', 'inStock'];
-}
+use \App\Models\Color;
+use \App\Models\Size;
 
 class Product extends Model
 {
@@ -65,5 +53,7 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'href'
+    ];
 }
